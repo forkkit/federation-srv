@@ -4,16 +4,15 @@ import (
 	"fmt"
 	"time"
 
-	"github.com/micro/federation-srv/federation"
-	"github.com/micro/go-os/config"
-	"github.com/micro/go-os/config/source/file"
-
+	"github.com/micro/go-config"
+	"github.com/micro/go-config/source/file"
 	"github.com/micro/go-micro/broker"
 	"github.com/micro/go-micro/broker/http"
 	"github.com/micro/go-plugins/broker/kafka"
 	"github.com/micro/go-plugins/broker/nats"
 	"github.com/micro/go-plugins/broker/nsq"
 	"github.com/micro/go-plugins/broker/rabbitmq"
+	"github.com/microhq/federation-srv/federation"
 )
 
 var (

@@ -87,7 +87,7 @@ Example config:
 3. Download and start the service
 
 	```shell
-	go get github.com/micro/federation-srv
+	go get github.com/microhq/federation-srv
 	federation-srv
 	```
 

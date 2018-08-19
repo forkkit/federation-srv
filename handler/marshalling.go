@@ -1,8 +1,8 @@
 package handler
 
 import (
-	"github.com/micro/federation-srv/federation"
-	proto "github.com/micro/federation-srv/proto/federation"
+	"github.com/microhq/federation-srv/federation"
+	proto "github.com/microhq/federation-srv/proto/federation"
 )
 
 func brokerToProto(b federation.Broker) *proto.Broker {

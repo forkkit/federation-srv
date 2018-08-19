@@ -7,12 +7,13 @@ import (
 	"github.com/micro/cli"
 	"github.com/micro/go-micro"
 
-	"github.com/micro/federation-srv/federation"
-	"github.com/micro/federation-srv/handler"
+	"github.com/microhq/federation-srv/federation"
+	"github.com/microhq/federation-srv/handler"
 
-	proto "github.com/micro/federation-srv/proto/federation"
-	"github.com/micro/go-os/config"
-	"github.com/micro/go-os/config/source/file"
+	"github.com/micro/go-config"
+	"github.com/micro/go-config/source"
+	"github.com/micro/go-config/source/file"
+	proto "github.com/microhq/federation-srv/proto/federation"
 )
 
 var (
@@ -43,12 +44,9 @@ func main() {
 				src = parts[0]
 			}
 
-			var source config.Source
+			var source source.Source
 
 			switch src {
-			case "platform":
-				log.Println("Using platform source")
-				source = config.NewSource(config.SourceClient(service.Client()))
 			case "file":
 				fileName := defaultFile
 
@@ -57,7 +55,7 @@ func main() {
 				}
 
 				log.Println("Using file source:", fileName)
-				source = file.NewSource(config.SourceName(fileName))
+				source = file.NewSource(file.WithPath(fileName))
 			default:
 				fileName := defaultFile
 
@@ -66,10 +64,11 @@ func main() {
 				}
 
 				log.Println("Using file source:", fileName)
-				source = file.NewSource(config.SourceName(fileName))
+				source = file.NewSource(file.WithPath(fileName))
 			}
 
-			federation.Init(config.NewConfig(config.WithSource(source)), service)
+			config.Load(source)
+			federation.Init(config.DefaultConfig, service)
 		}),
 		micro.BeforeStart(federation.Run),
 	)
